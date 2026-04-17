@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Premium Tech Accessories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --surface: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #f5f5f0;
+    --muted: #888880;
+    --accent: #c8f542;
+    --accent2: #7df6ff;
+    --accent3: #ff6b35;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .nav-icon {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 1rem;
+  }
+  .nav-icon:hover { border-color: var(--accent); background: rgba(200,245,66,0.08); }
+
+  .cart-badge {
+    position: relative;
+  }
+  .cart-badge::after {
+    content: '3';
+    position: absolute;
+    top: -4px; right: -4px;
+    background: var(--accent);
+    color: #0a0a0a;
+    font-size: 0.6rem;
+    font-weight: 700;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,245,66,0.12) 0%, transparent 70%);
+    top: 20%; right: 5%;
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(125,246,255,0.08) 0%, transparent 70%);
+    bottom: 10%; left: 10%;
+    pointer-events: none;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200,245,66,0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+  }
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--accent);
+    -webkit-text-stroke: 0;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: #0a0a0a;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.85rem 1.75rem;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(200,245,66,0.3); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.85rem 1.75rem;
+    border-radius: 100px;
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--text); background: rgba(255,255,255,0.04); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-val {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 3rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 400px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-img-area {
+    height: 280px;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 60%, rgba(200,245,66,0.15) 0%, transparent 60%);
+  }
+
+  .product-3d {
+    font-size: 8rem;
+    filter: drop-shadow(0 20px 40px rgba(200,245,66,0.2));
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  .product-badge-new {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: var(--accent);
+    color: #0a0a0a;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .product-fav {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: var(--text);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .product-fav:hover { background: rgba(255,255,255,0.2); }
+
+  .product-info {
+    padding: 1.5rem;
+  }
+  .product-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 0.5rem;
+  }
+  .product-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .product-price {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .product-brand {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .product-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    color: #f59e0b;
+  }
+  .product-stars span { color: var(--muted); }
+  .btn-add-hero {
+    width: 100%;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    padding: 0.85rem;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-add-hero:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(200,245,66,0.25); }
+
+  /* ─── MARQUEE ─── */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    overflow: hidden;
+    background: var(--bg2);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .marquee-dot { color: var(--accent); font-size: 1.2rem; }
+
+  /* ─── SECTION ─── */
+  section { padding: 6rem 3rem; }
+
+  .section-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 480px;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── CATEGORIES ─── */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    text-align: center;
+  }
+  .cat-card:hover {
+    border-color: var(--accent);
+    background: rgba(200,245,66,0.04);
+    transform: translateY(-3px);
+  }
+  .cat-icon { font-size: 2rem; }
+  .cat-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .cat-count {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* ─── PRODUCTS GRID ─── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+  }
+  .product-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-4px);
+  }
+  .product-card:hover .product-hover-actions {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .product-card-img {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #1e1e1e, #252525);
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 70%, rgba(200,245,66,0.1) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .product-card:hover .product-card-img::after { opacity: 1; }
+
+  .product-emoji { font-size: 5rem; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
+
+  .product-tag {
+    position: absolute;
+    top: 12px; left: 12px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tag-sale { background: #ff6b35; color: #fff; }
+  .tag-new { background: var(--accent); color: #0a0a0a; }
+  .tag-hot { background: #7df6ff; color: #0a0a0a; }
+
+  .product-fav2 {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: var(--muted);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .product-fav2:hover { background: rgba(255,107,53,0.2); color: #ff6b35; }
+
+  .product-hover-actions {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0.75rem;
+    background: linear-gradient(transparent, rgba(10,10,10,0.9));
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.25s;
+  }
+  .btn-quick {
+    flex: 1;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .btn-quick:hover { transform: scale(1.02); }
+
+  .product-card-body {
+    padding: 1.25rem;
+  }
+  .product-card-brand {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .product-card-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+  .product-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: #f59e0b;
+    margin-bottom: 0.75rem;
+  }
+  .product-card-rating span { color: var(--muted); }
+  .product-card-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .price-new {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .price-old {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  /* ─── FEATURE BANNER ─── */
+  .feature-banner {
+    margin: 0 3rem;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #1e2e12 0%, #0f1a0a 100%);
+    border: 1px solid rgba(200,245,66,0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+  .feature-banner::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(200,245,66,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .fb-text {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .fb-eyebrow {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .fb-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .fb-desc {
+    color: rgba(245,245,240,0.6);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 360px;
+  }
+  .fb-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12rem;
+    position: relative;
+    padding: 2rem;
+    filter: drop-shadow(0 0 60px rgba(200,245,66,0.2));
+  }
+
+  /* ─── BRANDS ─── */
+  .brands-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brands-grid {
+    display: flex;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .brand-item {
+    flex: 1;
+    padding: 2rem 1.5rem;
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .brand-item:hover { background: var(--surface); }
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .brand-item:hover .brand-name { color: var(--text); }
+
+  /* ─── PERKS ─── */
+  .perks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .perk-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .perk-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .perk-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .perk-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── NEWSLETTER ─── */
+  .newsletter {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    padding: 5rem 3rem;
+  }
+  .nl-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .nl-sub {
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .nl-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .nl-input {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .nl-input::placeholder { color: var(--muted); }
+  .nl-btn {
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    padding: 0.9rem 1.75rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0 100px 100px 0;
+    transition: background 0.2s;
+  }
+  .nl-btn:hover { background: #d4f85a; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 4rem 3rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin: 1rem 0 1.5rem;
+    max-width: 280px;
+    line-height: 1.7;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .social-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    background: none;
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .footer-col ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--text); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ─── FILTER TABS ─── */
+  .filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .filter-tab {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-tab:hover { border-color: var(--border2); color: var(--text); }
+  .filter-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 70px; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .categories-grid { grid-template-columns: repeat(3, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .perks-grid { grid-template-columns: repeat(2, 1fr); }
+    .brands-grid { flex-wrap: wrap; }
+    .brand-item { flex: calc(50% - 0.5px); }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+    .feature-banner { grid-template-columns: 1fr; margin: 0 1.5rem; }
+    .fb-visual { font-size: 7rem; padding: 2rem; }
+    .fb-text { padding: 2.5rem; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">NEX<span>US</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Shop</a></li>
+    <li><a href="#featured">New Arrivals</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#sale">Sale</a></li>
+    <li><a href="#">Support</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-icon" title="Search">🔍</button>
+    <button class="nav-icon" title="Wishlist">♡</button>
+    <button class="nav-icon cart-badge" title="Cart">🛒</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-text fade-up visible">
+    <div class="hero-tag">New Collection 2025</div>
+    <h1 class="hero-h1">
+      Gear Up<br>
+      <span class="line2">For the</span><br>
+      <em>Future.</em>
+    </h1>
+    <p class="hero-sub">Premium tech accessories engineered for performance. From audiophile headphones to precision-crafted cables — elevate every interaction.</p>
+    <div class="hero-ctas">
+      <a href="#featured" class="btn-primary">Shop Now →</a>
+      <a href="#categories" class="btn-outline">Browse Categories</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">50K+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div>
+        <div class="stat-val">1200+</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div>
+        <div class="stat-val">4.9★</div>
+        <div class="stat-label">Avg Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual fade-up visible">
+    <div class="hero-product-card">
+      <div class="product-img-area">
+        <div class="product-3d">🎧</div>
+        <span class="product-badge-new">Just Dropped</span>
+        <button class="product-fav">♡</button>
+      </div>
+      <div class="product-info">
+        <div class="product-info-top">
+          <div class="product-name">SonicCore Pro X</div>
+          <div class="product-price">$249</div>
+        </div>
+        <div class="product-brand">Nexus Audio — Wireless ANC Headphones</div>
+        <div class="product-stars">★★★★★ <span>(1,284 reviews)</span></div>
+        <button class="btn-add-hero">Add to Cart — $249</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot">✦</span> Free Shipping on Orders Over $50</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> 2-Year Warranty on All Products</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> 30-Day Hassle-Free Returns</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> New Arrivals Every Week</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> Certified Authentic Products</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> 24/7 Customer Support</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><span class="marquee-dot">✦</span> Free Shipping on Orders Over $50</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> 2-Year Warranty on All Products</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> 30-Day Hassle-Free Returns</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> New Arrivals Every Week</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> Certified Authentic Products</div>
+    <div class="marquee-item"><span class="marquee-dot">✦</span> 24/7 Customer Support</div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-tag">Browse by Type</div>
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Shop by<br>Category</h2>
+    </div>
+    <a href="#" class="btn-outline" style="height:fit-content">View All →</a>
+  </div>
+  <div class="categories-grid fade-up">
+    <a href="#" class="cat-card">
+      <div class="cat-icon">🎧</div>
+      <div class="cat-name">Headphones</div>
+      <div class="cat-count">142 items</div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon">⌚</div>
+      <div class="cat-name">Smartwatches</div>
+      <div class="cat-count">89 items</div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon">🔌</div>
+      <div class="cat-name">Chargers</div>
+      <div class="cat-count">210 items</div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon">🖱️</div>
+      <div class="cat-name">PC Gear</div>
+      <div class="cat-count">176 items</div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon">📱</div>
+      <div class="cat-name">Phone Cases</div>
+      <div class="cat-count">320 items</div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon">💡</div>
+      <div class="cat-name">Smart Home</div>
+      <div class="cat-count">95 items</div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section id="featured" style="background: var(--bg2); border-top: 1px solid var(--border);">
+  <div class="section-tag">Handpicked Selection</div>
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Featured<br>Products</h2>
+      <p class="section-sub">The most-loved gear from our curated collection.</p>
+    </div>
+    <a href="#" class="btn-outline" style="height:fit-content">See All →</a>
+  </div>
+
+  <div class="filter-tabs">
+    <button class="filter-tab active" onclick="filterTabs(this)">All</button>
+    <button class="filter-tab" onclick="filterTabs(this)">Headphones</button>
+    <button class="filter-tab" onclick="filterTabs(this)">Chargers</button>
+    <button class="filter-tab" onclick="filterTabs(this)">Keyboards</button>
+    <button class="filter-tab" onclick="filterTabs(this)">Wearables</button>
+    <button class="filter-tab" onclick="filterTabs(this)">Cables</button>
+  </div>
+
+  <div class="products-grid fade-up">
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">🎧</div>
+        <span class="product-tag tag-hot">Hot</span>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">Nexus Audio</div>
+        <div class="product-card-name">SonicCore Pro X</div>
+        <div class="product-card-rating">★★★★★ <span>1.2k reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$249</span>
+          <span class="price-old">$329</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">⌨️</div>
+        <span class="product-tag tag-new">New</span>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">KeyForge</div>
+        <div class="product-card-name">Phantom TKL Mechanical Keyboard</div>
+        <div class="product-card-rating">★★★★☆ <span>876 reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$159</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">⌚</div>
+        <span class="product-tag tag-sale">–20%</span>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">Nexus Wear</div>
+        <div class="product-card-name">Pulse GT Smartwatch</div>
+        <div class="product-card-rating">★★★★★ <span>2.4k reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$199</span>
+          <span class="price-old">$249</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">🖱️</div>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">VoltAxis</div>
+        <div class="product-card-name">Viper Pro Wireless Mouse</div>
+        <div class="product-card-rating">★★★★★ <span>654 reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$89</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">🔋</div>
+        <span class="product-tag tag-hot">Hot</span>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">ChargePlus</div>
+        <div class="product-card-name">100W GaN Charger 4-Port</div>
+        <div class="product-card-rating">★★★★★ <span>3.1k reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$69</span>
+          <span class="price-old">$89</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">🎮</div>
+        <span class="product-tag tag-new">New</span>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">PlayEdge</div>
+        <div class="product-card-name">DualStrike Pro Controller</div>
+        <div class="product-card-rating">★★★★☆ <span>431 reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$119</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">📡</div>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">NetFlow</div>
+        <div class="product-card-name">TriBand WiFi 6E Router</div>
+        <div class="product-card-rating">★★★★★ <span>812 reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$189</span>
+          <span class="price-old">$229</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-emoji">🔌</div>
+        <span class="product-tag tag-sale">–30%</span>
+        <button class="product-fav2">♡</button>
+        <div class="product-hover-actions">
+          <button class="btn-quick">Quick Add</button>
+          <button class="btn-quick" style="background: var(--bg3); color: var(--text);">View</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">CableLux</div>
+        <div class="product-card-name">Braided USB-C Cable 240W 6ft</div>
+        <div class="product-card-rating">★★★★★ <span>5.7k reviews</span></div>
+        <div class="product-card-price">
+          <span class="price-new">$19</span>
+          <span class="price-old">$29</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURE BANNER -->
+<div class="feature-banner fade-up" id="sale">
+  <div class="fb-text">
+    <div class="fb-eyebrow">Limited Time Offer</div>
+    <h2 class="fb-title">Noise-Cancelling<br>Redefined.</h2>
+    <p class="fb-desc">The SonicCore Pro X delivers 40dB ANC with 36-hour battery life. The most immersive listening experience we've ever built.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="#" class="btn-primary">Shop Headphones →</a>
+      <a href="#" class="btn-outline" style="border-color: rgba(200,245,66,0.4); color: var(--accent);">Learn More</a>
+    </div>
+  </div>
+  <div class="fb-visual">🎧</div>
+</div>
+
+<!-- BRANDS -->
+<section class="brands-section" id="brands">
+  <div class="section-tag" style="text-align:center;margin-bottom:2rem;">Trusted Partners</div>
+  <h2 class="section-title" style="text-align:center;margin-bottom:3rem;">Shop Top Brands</h2>
+  <div class="brands-grid">
+    <div class="brand-item"><div class="brand-name">APPLE</div></div>
+    <div class="brand-item"><div class="brand-name">SAMSUNG</div></div>
+    <div class="brand-item"><div class="brand-name">SONY</div></div>
+    <div class="brand-item"><div class="brand-name">LOGITECH</div></div>
+    <div class="brand-item"><div class="brand-name">BOSE</div></div>
+    <div class="brand-item"><div class="brand-name">ANKER</div></div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section>
+  <div class="perks-grid fade-up">
+    <div class="perk-card">
+      <div class="perk-icon">🚚</div>
+      <div class="perk-title">Free Fast Shipping</div>
+      <div class="perk-desc">Free delivery on all orders over $50. Express 1-2 day delivery available at checkout.</div>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">🛡️</div>
+      <div class="perk-title">2-Year Warranty</div>
+      <div class="perk-desc">Every product comes with a full 2-year manufacturer warranty — no questions asked.</div>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">↩️</div>
+      <div class="perk-title">30-Day Returns</div>
+      <div class="perk-desc">Not happy? Return anything within 30 days for a full refund or easy exchange.</div>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">💬</div>
+      <div class="perk-title">24/7 Support</div>
+      <div class="perk-desc">Our expert team is always on — live chat, email, or call us any time of day.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter fade-up">
+  <div class="section-tag" style="text-align:center">Stay in the Loop</div>
+  <h2 class="nl-title">Get Early Access to<br>Drops & Deals</h2>
+  <p class="nl-sub">Join 50,000+ subscribers. No spam. Unsubscribe anytime.</p>
+  <div class="nl-form">
+    <input type="email" class="nl-input" placeholder="your@email.com">
+    <button class="nl-btn">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">NEX<span>US</span></a>
+      <p>The destination for premium tech accessories. Engineered for performance, built to last.</p>
+      <div class="footer-socials">
+        <button class="social-btn">𝕏</button>
+        <button class="social-btn">in</button>
+        <button class="social-btn">ig</button>
+        <button class="social-btn">yt</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Best Sellers</a></li>
+        <li><a href="#">Sale</a></li>
+        <li><a href="#">All Products</a></li>
+        <li><a href="#">Brands</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Warranty</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Nexus</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Affiliate Program</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Nexus Tech. All rights reserved.</span>
+    <span>Secure payments: Visa · Mastercard · PayPal · Apple Pay</span>
+  </div>
+</footer>
+
+<script>
+  function filterTabs(el) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.btn-quick').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.textContent = '✓ Added!';
+      this.style.background = '#7df6ff';
+      setTimeout(() => {
+        this.textContent = 'Quick Add';
+        this.style.background = '';
+      }, 1500);
+    });
+  });
+
+  document.querySelectorAll('.product-fav, .product-fav2').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.style.color = '#ff6b35';
+      this.textContent = '♥';
+    });
+  });
+
+  document.querySelector('.nl-btn').addEventListener('click', function() {
+    const input = document.querySelector('.nl-input');
+    if (input.value.includes('@')) {
+      this.textContent = '✓ Subscribed!';
+      this.style.background = '#7df6ff';
+    }
+  });
+</script>
+</body>
+</html>
